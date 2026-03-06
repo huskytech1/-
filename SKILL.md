@@ -44,6 +44,13 @@ node /Users/huskytech/.claude/skills/web-screenshot/scripts/screenshot.js "https
 3.  **自定义路径**：你可以通过第三个参数指定基础保存目录，例如：
     `node screenshot.js <url> <name> "/custom/path"`
 
+## 预设目标 (Preset Targets)
+
+技能内置了一些常用的预设截图目标，你可以通过类目名直接调用。预设列表保存在 `references/pconline.json` 中。
+
+- **太平洋科技系列**：包含手机、笔记本、显卡、家电等 18 个频道。
+- **调用方式**：当用户说“截图太平洋全系列”或“截图太平洋的显卡频道”时，请读取该 JSON 文件获取对应 URL。
+
 ## 注意事项
 
 - **超时处理**：脚本默认等待 90 秒，对于极慢的网页可能会失败。

@@ -1,0 +1,22 @@
+{
+  "pconline": {
+    "手机": "https://mobile.pconline.com.cn/?ad=9455",
+    "笔记本": "https://notebook.pconline.com.cn/?ad=9455",
+    "影像": "https://dc.pconline.com.cn/?ad=9525",
+    "家电首页": "https://family.pconline.com.cn/?ad=9458",
+    "大家电首页": "https://family.pconline.com.cn/electric/",
+    "电视影音": "https://theatre.pconline.com.cn/",
+    "生活家电": "https://life.pconline.com.cn/",
+    "厨卫家电": "https://kitchen.pconline.com.cn/",
+    "智能家电": "https://family.pconline.com.cn/smart/",
+    "智慧家": "https://smartlife.pconline.com.cn/",
+    "硬件首页": "https://diy.pconline.com.cn/?ad=9467",
+    "显卡": "https://diy.pconline.com.cn/graphics/",
+    "主板": "https://diy.pconline.com.cn/main/",
+    "存储": "https://diy.pconline.com.cn/ssd/",
+    "显示器": "https://diy.pconline.com.cn/display/",
+    "机箱电源": "https://diy.pconline.com.cn/power/",
+    "外设配件": "https://acc.pconline.com.cn/mouse/",
+    "音频": "https://acc.pconline.com.cn/vocality/"
+  }
+}
