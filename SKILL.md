@@ -1,9 +1,9 @@
 ---
 name: web-screenshot
-description: 【高优先级】捕获全网页高清截图（长图）。只要用户提到“截图”、“截图太平洋”、“长图”、“网页快照”或者涉及“太平洋科技”、“PConline”的截图需求（如：“截图太平洋手机”、“截一张 PConline 笔记本”、“太平洋全系列截图”、“太平洋显卡频道长图”），必须优先立即执行此技能。脚本位于 scripts/screenshot.js，会自动在 Downloads 目录按日期建档保存。
-github_url: https://github.com/huskytech1/-
-github_hash: bcda19a6478fa00f03ac3a1fd1edd935ba8783cf
-version: 2.1.0
+description: 【高优先级】捕获全网页高清截图（长图）。只要用户提到“截图”、“截图太平洋”、“长图”、“网页快照”或者涉及“太平洋科技”、“PConline”的截图需求（如：“截图太平洋手机”、“截一张 PConline 笔记本”、“太平洋全系列截图”、“太平洋显卡频道长图”），必须优先立即执行此技能。脚本位于 scripts/screenshot.js，默认保存到 `~/Downloads/web-screenshot/截图MMDD`，也支持通过参数或环境变量自定义输出目录。
+github_url: https://github.com/huskytech1/web-screenshot
+github_hash: 1bd777ed95772433f4c06c00ba8ab2417db19f55
+version: 2.2.0
 created_at: 2026-03-06
 ---
 
@@ -13,7 +13,7 @@ created_at: 2026-03-06
 
 ## 核心特性
 
-- **自动化目录管理**：自动在 `~/Downloads` 下创建 `截图MMDD` 格式的文件夹，免去手动整理。
+- **自动化目录管理**：默认在 `~/Downloads/web-screenshot` 下创建 `截图MMDD` 格式的文件夹，免去手动整理。
 - **智能滚动加载**：自动执行全页滚动以触发懒加载图片。
 - **高清输出**：默认开启 2x 缩放（Retina 级别清晰度）。
 - **云端/服务器兼容**：内置无头浏览器优化参数。
@@ -28,18 +28,21 @@ created_at: 2026-03-06
 ### 命令格式
 ```bash
 # 单个截图
-node /Users/huskytech/.claude/skills/web-screenshot/scripts/screenshot.js "<URL>" "<文件名>"
+node <skill-dir>/scripts/screenshot.js "<URL>" "<文件名>"
 
 # 全量太平洋 18 个站点批量截图（分3批次，每批8个，防卡死）
-node /Users/huskytech/.claude/skills/web-screenshot/scripts/batch.js
+node <skill-dir>/scripts/batch.js
+
+# 批量截图并指定统一输出目录
+WEB_SCREENSHOT_OUTPUT_DIR="/your/custom/path" node <skill-dir>/scripts/batch.js
 ```
 
-*注意：文件名不需要包含 .png 后缀。批量截图时系统会自动调用单图脚本并保存到 `截图MMDD` 文件夹。*
+*注意：文件名不需要包含 .png 后缀。脚本会自动清理文件名中的非法字符。批量截图时系统会自动调用单图脚本并保存到 `~/Downloads/web-screenshot/截图MMDD`。如需共享给别人，建议通过第三个参数或 `WEB_SCREENSHOT_OUTPUT_DIR` 环境变量指定自定义目录。*
 
 ### 示例操作
 用户说："把太平洋全系列截一下"
 你的动作：
-1. 运行：`node /Users/huskytech/.claude/skills/web-screenshot/scripts/batch.js`
+1. 运行：`node <skill-dir>/scripts/batch.js`
 
 ## 预设目标 (Preset Targets)
 

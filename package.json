@@ -1,8 +1,12 @@
 {
   "name": "web-screenshot-skill",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Professional full-page screenshot tool for Claude",
   "main": "scripts/screenshot.js",
+  "scripts": {
+    "screenshot": "node scripts/screenshot.js",
+    "batch": "node scripts/batch.js"
+  },
   "dependencies": {
     "playwright": "latest"
   }

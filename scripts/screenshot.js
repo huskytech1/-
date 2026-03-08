@@ -8,8 +8,31 @@ const os = require('os');
  * 
  * Usage: node screenshot.js <url> <filename> [baseDirectory]
  * 
- * Example: node screenshot.js "https://google.com" "Google首页" "~/Downloads"
+ * Example: node screenshot.js "https://google.com" "Google首页" "~/Downloads/shared-screenshots"
  */
+
+const DEFAULT_OUTPUT_ROOT = path.join(os.homedir(), 'Downloads', 'web-screenshot');
+
+function resolveBaseDir(cliBaseDir) {
+    let baseDir = cliBaseDir || process.env.WEB_SCREENSHOT_OUTPUT_DIR || DEFAULT_OUTPUT_ROOT;
+    if (baseDir.startsWith('~')) {
+        baseDir = path.join(os.homedir(), baseDir.slice(1));
+    }
+
+    return path.resolve(baseDir);
+}
+
+function sanitizeFileName(input) {
+    if (!input) {
+        return `screenshot_${Date.now()}`;
+    }
+
+    return input
+        .replace(/[<>:"/\\|?*\x00-\x1F]/g, '_')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/[. ]+$/g, '') || `screenshot_${Date.now()}`;
+}
 
 async function takeScreenshot(url, outputPath) {
     const browser = await chromium.launch({ 
@@ -91,11 +114,8 @@ const mm = String(now.getMonth() + 1).padStart(2, '0');
 const dd = String(now.getDate()).padStart(2, '0');
 const dateFolder = `截图${mm}${dd}`;
 
-// 2. Resolve Base Directory (Default to Downloads)
-let baseDir = userBaseDir || path.join(os.homedir(), 'Downloads');
-if (baseDir.startsWith('~')) {
-    baseDir = path.join(os.homedir(), baseDir.slice(1));
-}
+// 2. Resolve Base Directory
+const baseDir = resolveBaseDir(userBaseDir);
 
 const targetFolderPath = path.join(baseDir, dateFolder);
 
@@ -105,7 +125,8 @@ if (!fs.existsSync(targetFolderPath)) {
 }
 
 // 4. Construct Final Path
-const fileName = name ? `${name}.png` : `screenshot_${now.getTime()}.png`;
+const safeName = sanitizeFileName(name);
+const fileName = `${safeName}.png`;
 const finalOutputPath = path.join(targetFolderPath, fileName);
 
 takeScreenshot(url, finalOutputPath);

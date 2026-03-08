@@ -4,7 +4,8 @@
 
 ## 🚀 核心特性
 
-- **自动化目录管理**：自动在用户下载目录（Downloads）创建按日期命名的文件夹（如 `截图0306`）。
+- **自动化目录管理**：默认在用户下载目录下的 `web-screenshot` 文件夹中创建按日期命名的子目录（如 `截图0306`）。
+- **可分享配置**：支持命令行参数或 `WEB_SCREENSHOT_OUTPUT_DIR` 环境变量统一指定输出目录。
 - **智能滚动加载**：自动执行全页模拟滚动，确保懒加载（Lazy-load）图片完全渲染后再截图。
 - **高清输出**：默认开启 2x 缩放（Retina 级别），文字和图片极其清晰。
 - **超长页面支持**：针对超长网页优化，支持自定义超时时间（默认 90s）。
@@ -16,8 +17,8 @@
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/huskytech1/-.git
-cd -
+git clone https://github.com/huskytech1/web-screenshot.git
+cd web-screenshot
 
 # 2. 安装依赖
 npm install
@@ -37,7 +38,7 @@ npx playwright install-deps
 ```bash
 node scripts/screenshot.js "https://www.pconline.com.cn" "太平洋科技"
 ```
-*截图将保存至：`~/Downloads/截图MMDD/太平洋科技.png`*
+*截图将保存至：`~/Downloads/web-screenshot/截图MMDD/太平洋科技.png`*
 
 ### 进阶用法
 你可以通过第三个参数指定自定义的基础保存目录：
@@ -45,6 +46,14 @@ node scripts/screenshot.js "https://www.pconline.com.cn" "太平洋科技"
 ```bash
 node scripts/screenshot.js "https://google.com" "Google" "/your/custom/path"
 ```
+
+也可以通过环境变量统一指定输出目录，方便把 Skill 分享给别人后直接复用：
+
+```bash
+WEB_SCREENSHOT_OUTPUT_DIR="/your/custom/path" node scripts/batch.js
+```
+
+如果要给不同人使用，推荐直接设置环境变量；如果只是临时换目录，传第三个参数更方便。
 
 ## 🤖 作为 Claude Skill 使用
 

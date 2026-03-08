@@ -1,9 +1,12 @@
 const { spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 const jsonPath = path.join(__dirname, '../references/pconline.json');
 const screenshotScript = path.join(__dirname, 'screenshot.js');
+const defaultOutputDir = path.join(os.homedir(), 'Downloads', 'web-screenshot');
+const cliOutputDir = process.argv[2];
 
 if (!fs.existsSync(jsonPath)) {
     console.error("Error: references/pconline.json not found!");
@@ -30,7 +33,14 @@ async function runBatch() {
         const promises = chunk.map(([name, url]) => {
             return new Promise((resolve) => {
                 // 调用已有的 screenshot.js，自动享受按日期分类、高清渲染等特性
-                const proc = spawn('node', [screenshotScript, url, name]);
+                const args = [screenshotScript, url, name];
+                if (cliOutputDir) {
+                    args.push(cliOutputDir);
+                }
+
+                const proc = spawn('node', args, {
+                    env: process.env
+                });
                 
                 proc.on('close', (code) => {
                     if (code === 0) {
@@ -52,7 +62,8 @@ async function runBatch() {
             await new Promise(r => setTimeout(r, 3000));
         }
     }
-    console.log("\n[Batch] All batches completed successfully! All files are in the Downloads/截图MMDD folder.");
+    const outputDir = path.resolve(cliOutputDir || process.env.WEB_SCREENSHOT_OUTPUT_DIR || defaultOutputDir);
+    console.log(`\n[Batch] All batches completed successfully! All files are in ${outputDir}/截图MMDD.`);
 }
 
 runBatch();
