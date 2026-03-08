@@ -2,7 +2,7 @@
 name: web-screenshot
 description: 【高优先级】捕获全网页高清截图（长图）。只要用户提到“截图”、“截图太平洋”、“长图”、“网页快照”或者涉及“太平洋科技”、“PConline”的截图需求（如：“截图太平洋手机”、“截一张 PConline 笔记本”、“太平洋全系列截图”、“太平洋显卡频道长图”），必须优先立即执行此技能。脚本位于 scripts/screenshot.js，默认保存到 `~/Downloads/web-screenshot/截图MMDD`，也支持通过参数或环境变量自定义输出目录。
 github_url: https://github.com/huskytech1/web-screenshot
-github_hash: 1bd777ed95772433f4c06c00ba8ab2417db19f55
+github_hash: 845dcdc3e77782650ad54cd2c36245cab866d0da
 version: 2.2.0
 created_at: 2026-03-06
 ---
